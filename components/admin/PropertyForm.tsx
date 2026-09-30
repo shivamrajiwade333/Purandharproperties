@@ -140,9 +140,10 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
 
   const handleAddPhotoByUrl = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPhotoInput) return;
-    setImages([...images, newPhotoInput]);
-    if (!coverImage) setCoverImage(newPhotoInput);
+    if (!newPhotoInput.trim()) return;
+    const urls = newPhotoInput.split('\n').map(u => u.trim()).filter(u => u.length > 0);
+    setImages(prev => [...prev, ...urls]);
+    if (!coverImage && urls[0]) setCoverImage(urls[0]);
     setNewPhotoInput('');
   };
 
@@ -633,21 +634,28 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
           </div>
 
           {/* Or Add Image URL directly */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="url"
-              placeholder="Or paste image URL (Unsplash, Cloudinary)..."
-              value={newPhotoInput}
-              onChange={(e) => setNewPhotoInput(e.target.value)}
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900"
-            />
-            <button
-              type="button"
-              onClick={handleAddPhotoByUrl}
-              className="px-4 py-2 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold hover:bg-slate-200"
-            >
-              Add Image URL
-            </button>
+          <div className="space-y-2 pt-2">
+            <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+              <span>OR PASTE DIRECT IMAGE URL(S) (Cloudinary, Imgur, Unsplash, Google Drive):</span>
+              <span className="text-slate-400 font-normal">One URL per line for multiple photos</span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2">
+              <textarea
+                rows={2}
+                placeholder="https://images.unsplash.com/photo-1545324418...\nhttps://images.unsplash.com/photo-1600596542815..."
+                value={newPhotoInput}
+                onChange={(e) => setNewPhotoInput(e.target.value)}
+                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-mono resize-none focus:outline-hidden focus:ring-2 focus:ring-brand-500"
+              />
+              <button
+                type="button"
+                onClick={handleAddPhotoByUrl}
+                className="px-5 py-2.5 rounded-xl bg-navy-900 text-white text-xs font-bold hover:bg-navy-800 transition-colors self-end sm:self-auto shrink-0"
+              >
+                + Add Image URL(s)
+              </button>
+            </div>
           </div>
 
           {/* Loaded Photo Previews & Cover Selection */}
