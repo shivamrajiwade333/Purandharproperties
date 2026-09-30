@@ -29,6 +29,7 @@ function SearchCatalogContent() {
   const [properties, setProperties] = useState<PropertyItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Video modal
   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -183,10 +184,28 @@ function SearchCatalogContent() {
         </div>
       </div>
 
+      {/* Mobile Filter Toggle Button */}
+      <div className="lg:hidden mb-6">
+        <button
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="w-full bg-navy-900 text-white font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-between transition-colors"
+        >
+          <span className="flex items-center text-sm">
+            <SlidersHorizontal className="w-4 h-4 mr-2 text-brand-400" />
+            {showMobileFilters ? 'Hide Search Filters' : 'Filter Properties'}
+          </span>
+          <span className="text-xs bg-brand-600 px-2.5 py-1 rounded-md">
+            {properties.length} Results
+          </span>
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Sidebar Filter Panel */}
-        <aside className="lg:col-span-1 space-y-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs h-fit sticky top-24">
+        <aside className={`lg:col-span-1 space-y-6 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs h-fit sticky top-24 ${
+          showMobileFilters ? 'block mb-6' : 'hidden lg:block'
+        }`}>
           
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <h3 className="text-base font-bold text-navy-900 flex items-center">

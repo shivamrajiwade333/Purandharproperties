@@ -39,7 +39,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative bg-navy-950 text-white min-h-[580px] flex items-center justify-center overflow-hidden py-16">
+    <section className="relative bg-navy-950 text-white min-h-[500px] sm:min-h-[580px] flex items-center justify-center overflow-hidden py-10 sm:py-16">
       
       {/* Background Image Overlay */}
       <div 
@@ -59,32 +59,32 @@ export default function Hero() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         
         {/* Trust pill */}
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-brand-300 mb-6 shadow-sm">
-          <CheckCircle2 className="w-4 h-4 text-brand-400" />
-          <span>Verified Real Estate Across Purandhar Taluka (Saswad, Jejuri, Dive, Narayanpur)</span>
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs font-semibold text-brand-300 mb-4 sm:mb-6 shadow-sm max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+          <CheckCircle2 className="w-4 h-4 text-brand-400 shrink-0" />
+          <span className="truncate">Verified Real Estate Across Purandhar Taluka (Saswad, Jejuri, Dive...)</span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
           Find a Place You'll Love in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">Purandhar Taluka</span>
         </h1>
 
         {/* Subheading */}
-        <p className="mt-5 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+        <p className="mt-3 sm:mt-5 text-sm sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
           Explore verified homes, apartments, villas, agricultural plots, and commercial spaces across Purandhar Taluka.
         </p>
 
         {/* Search Card Container */}
-        <div className="mt-10 max-w-4xl mx-auto bg-white/95 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20 text-slate-900">
+        <div className="mt-6 sm:mt-10 max-w-4xl mx-auto bg-white/95 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20 text-slate-900">
           
           {/* Buy / Rent / All Tabs */}
-          <div className="flex items-center space-x-2 border-b border-slate-200/70 pb-4 mb-4">
+          <div className="flex items-center space-x-2 border-b border-slate-200/70 pb-3 mb-4 overflow-x-auto whitespace-nowrap no-scrollbar">
             {(['All', 'Sale', 'Rent'] as const).map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all ${
+                className={`px-4 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all shrink-0 ${
                   activeTab === tab
                     ? 'bg-navy-900 text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-100'

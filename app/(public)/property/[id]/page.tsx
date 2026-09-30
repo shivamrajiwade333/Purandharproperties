@@ -157,7 +157,7 @@ export default function PropertyDetailPage() {
   const firstVideo = hasVideo ? property.videos[0] : null;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-10 space-y-8 sm:space-y-10">
       
       {/* Top Header & Breadcrumbs */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
@@ -587,6 +587,27 @@ export default function PropertyDetailPage() {
 
         </aside>
 
+      </div>
+
+      {/* Fixed Mobile Bottom Action Bar (WhatsApp & Call) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 flex items-center gap-2 shadow-2xl">
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-emerald-600 active:bg-emerald-700 text-white font-bold py-3 px-3 rounded-xl shadow-md flex items-center justify-center space-x-1.5 text-xs tracking-tight"
+        >
+          <MessageSquare className="w-4 h-4 fill-current" />
+          <span>WhatsApp Chat</span>
+        </a>
+
+        <a
+          href={`tel:${property.phone}`}
+          className="flex-1 bg-navy-900 active:bg-navy-800 text-white font-bold py-3 px-3 rounded-xl shadow-md flex items-center justify-center space-x-1.5 text-xs tracking-tight"
+        >
+          <Phone className="w-4 h-4" />
+          <span>Call Agent</span>
+        </a>
       </div>
 
       {/* Lightbox Modal */}
