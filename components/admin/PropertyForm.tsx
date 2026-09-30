@@ -164,8 +164,8 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
 
     const finalPublishStatus = targetPublishStatus || publishStatus;
 
-    if (!title.trim() || !price || !city.trim() || !area) {
-      setError('Please fill in all required basic information fields (Title, Price, Location City, and Area).');
+    if (!title.trim()) {
+      setError('Please enter a Property Title.');
       setSubmitting(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -345,15 +345,14 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
         <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
           <DollarSign className="w-5 h-5 text-brand-600" />
-          <h3 className="text-base font-bold text-navy-900">2. Pricing & Financials</h3>
+          <h3 className="text-base font-bold text-navy-900">2. Pricing & Financials <span className="text-xs text-slate-400 font-normal">(Optional)</span></h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Price (₹) *</label>
+            <label className="text-xs font-bold text-slate-600 uppercase">Price (₹) <span className="text-slate-400 font-normal">(Optional - Leave blank for "Price on Request")</span></label>
             <input
               type="number"
-              required
               placeholder="e.g. 6500000"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -470,7 +469,7 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
         <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
           <Bed className="w-5 h-5 text-brand-600" />
-          <h3 className="text-base font-bold text-navy-900">4. Property Specifications & Layout</h3>
+          <h3 className="text-base font-bold text-navy-900">4. Property Specifications & Layout <span className="text-xs text-slate-400 font-normal">(Optional)</span></h3>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -508,10 +507,9 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Built-up Area (sqft) *</label>
+            <label className="text-xs font-bold text-slate-600 uppercase">Built-up Area (sqft) <span className="text-slate-400 font-normal">(Optional)</span></label>
             <input
               type="number"
-              required
               placeholder="1450"
               value={area}
               onChange={(e) => setArea(e.target.value)}
@@ -582,7 +580,7 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
         <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
           <Star className="w-5 h-5 text-brand-600" />
-          <h3 className="text-base font-bold text-navy-900">5. Amenities & Key Features</h3>
+          <h3 className="text-base font-bold text-navy-900">5. Amenities & Key Features <span className="text-xs text-slate-400 font-normal">(Optional)</span></h3>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
