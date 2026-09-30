@@ -155,22 +155,29 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent, targetPublishStatus?: PublishStatus) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.SyntheticEvent, targetPublishStatus?: PublishStatus) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (submitting) return;
+
     setSubmitting(true);
     setError('');
 
     const finalPublishStatus = targetPublishStatus || publishStatus;
 
-    if (!title || !price || !city || !area) {
-      setError('Please fill in all required basic information fields.');
+    if (!title.trim() || !price || !city.trim() || !area) {
+      setError('Please fill in all required basic information fields (Title, Price, Location City, and Area).');
       setSubmitting(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
+    const finalImages = images.length > 0 ? images : [
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
+    ];
+
     const payload = {
-      title,
-      description,
+      title: title.trim(),
+      description: description.trim() || title.trim(),
       propertyType,
       listingType,
       status,
@@ -179,10 +186,10 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       price: Number(price),
       maintenance: maintenance ? Number(maintenance) : 0,
       deposit: deposit ? Number(deposit) : 0,
-      address,
-      city,
-      state,
-      pincode,
+      address: address.trim() || city.trim(),
+      city: city.trim(),
+      state: state.trim() || 'Maharashtra',
+      pincode: pincode.trim() || '412301',
       latitude: latitude ? Number(latitude) : undefined,
       longitude: longitude ? Number(longitude) : undefined,
       bedrooms: Number(bedrooms || 0),
@@ -195,13 +202,13 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       parking,
       furnishing,
       amenities,
-      images,
-      coverImage: coverImage || images[0] || '',
+      images: finalImages,
+      coverImage: coverImage || finalImages[0] || '',
       videos: videoUrl ? [{ url: videoUrl, title: 'Virtual Video Tour' }] : [],
-      ownerName,
-      phone,
-      whatsapp,
-      email,
+      ownerName: ownerName.trim() || 'Purandhar Properties Agent',
+      phone: phone.trim() || '+91 98765 43210',
+      whatsapp: whatsapp.trim() || '919876543210',
+      email: email.trim() || 'info@purandharproperties.com',
     };
 
     try {
@@ -223,16 +230,18 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
         router.refresh();
       } else {
         setError(json.error || 'Failed to save property listing');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (err) {
       setError('Network error while saving property.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} className="space-y-8 max-w-5xl mx-auto pb-16">
+    <form onSubmit={(e) => handleSubmit(e, publishStatus)} className="space-y-8 max-w-5xl mx-auto pb-16">
       
       {/* Purandhar Taluka Location Guidelines Banner */}
       <div className="p-4 rounded-2xl bg-brand-50 border border-brand-200 text-brand-900 text-xs font-semibold flex items-start space-x-3">
@@ -829,10 +838,10 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
 
           {/* Publish Property Button */}
           <button
-            type="submit"
+            type="button"
             disabled={submitting}
             onClick={(e) => handleSubmit(e, 'Published')}
-            className="w-full sm:w-auto px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-lg shadow-brand-900/20 transition-all flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
           >
             <Send className="w-4 h-4" />
             <span>{submitting ? 'SAVING...' : isEditMode ? 'UPDATE PROPERTY' : 'PUBLISH PROPERTY'}</span>
