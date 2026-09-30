@@ -29,9 +29,9 @@ export async function GET(request: Request) {
     if (db) {
       const filterQuery: any = {};
 
-      if (publishStatus) {
+      if (publishStatus && publishStatus !== 'All') {
         filterQuery.publishStatus = publishStatus;
-      } else {
+      } else if (!publishStatus) {
         // By default on public API, only show published properties unless admin requests all
         const admin = await getAdminFromCookies();
         if (!admin) {
@@ -114,9 +114,9 @@ export async function GET(request: Request) {
     const admin = await getAdminFromCookies();
 
     // Unless admin specified or logged in, show only published
-    if (!admin && !publishStatus) {
+    if (!admin && (!publishStatus || publishStatus === 'Published')) {
       properties = properties.filter(p => p.publishStatus === 'Published');
-    } else if (publishStatus) {
+    } else if (publishStatus && publishStatus !== 'All') {
       properties = properties.filter(p => p.publishStatus === publishStatus);
     }
 
