@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, MapPin, Building, DollarSign, BedDouble, CheckCircle2 } from 'lucide-react';
+import { Search, MapPin, Building, IndianRupee, BedDouble, CheckCircle2 } from 'lucide-react';
 
 export default function Hero() {
   const router = useRouter();
@@ -96,31 +96,31 @@ export default function Hero() {
           </div>
 
           {/* Search Inputs Grid */}
-          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-left">
+          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-left">
             
             {/* Location */}
             <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center">
-                <MapPin className="w-3.5 h-3.5 mr-1 text-brand-600" /> Location / Area
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
+                <MapPin className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Location / Area
               </label>
               <input
                 type="text"
                 placeholder="Saswad, Jejuri, Dive..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               />
             </div>
 
             {/* Property Type */}
             <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center">
-                <Building className="w-3.5 h-3.5 mr-1 text-brand-600" /> Property Type
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
+                <Building className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Property Type
               </label>
               <select
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               >
                 <option value="All">All Types</option>
                 <option value="Apartment">Apartment</option>
@@ -139,13 +139,13 @@ export default function Hero() {
 
             {/* Budget */}
             <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center">
-                <DollarSign className="w-3.5 h-3.5 mr-1 text-brand-600" /> Budget
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
+                <IndianRupee className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Budget
               </label>
               <select
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               >
                 <option value="All">Any Price</option>
                 <option value="under_50l">Under ₹50 Lakh</option>
@@ -157,13 +157,13 @@ export default function Hero() {
 
             {/* Bedrooms */}
             <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center">
-                <BedDouble className="w-3.5 h-3.5 mr-1 text-brand-600" /> Bedrooms
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
+                <BedDouble className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Bedrooms
               </label>
               <select
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               >
                 <option value="All">Any Beds</option>
                 <option value="1">1 BHK</option>
@@ -177,7 +177,7 @@ export default function Hero() {
             <div className="flex flex-col justify-end">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-700 hover:to-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2 transition-all duration-200 active:scale-95"
+                className="w-full bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-700 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2 transition-all duration-200 active:scale-95 text-sm"
               >
                 <Search className="w-4 h-4" />
                 <span>SEARCH</span>

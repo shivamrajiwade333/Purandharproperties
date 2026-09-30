@@ -14,7 +14,7 @@ import {
   List, 
   Building2, 
   MapPin, 
-  DollarSign, 
+  IndianRupee, 
   BedDouble, 
   Bath, 
   Maximize2,
