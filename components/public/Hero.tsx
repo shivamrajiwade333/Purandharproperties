@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, MapPin, Building, IndianRupee, BedDouble, CheckCircle2 } from 'lucide-react';
+import { Search, MapPin, Building, CheckCircle2 } from 'lucide-react';
 
 export default function Hero() {
   const router = useRouter();
@@ -10,8 +10,6 @@ export default function Hero() {
   const [activeTab, setActiveTab] = useState<'All' | 'Sale' | 'Rent'>('All');
   const [location, setLocation] = useState('');
   const [propertyType, setPropertyType] = useState('All');
-  const [budget, setBudget] = useState('All');
-  const [bedrooms, setBedrooms] = useState('All');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,20 +18,6 @@ export default function Hero() {
     if (activeTab !== 'All') params.set('listingType', activeTab);
     if (location) params.set('location', location);
     if (propertyType !== 'All') params.set('propertyType', propertyType);
-    if (bedrooms !== 'All') params.set('bedrooms', bedrooms);
-
-    if (budget !== 'All') {
-      if (budget === 'under_50l') params.set('maxPrice', '5000000');
-      else if (budget === '50l_1cr') {
-        params.set('minPrice', '5000000');
-        params.set('maxPrice', '10000000');
-      } else if (budget === '1cr_3cr') {
-        params.set('minPrice', '10000000');
-        params.set('maxPrice', '30000000');
-      } else if (budget === 'above_3cr') {
-        params.set('minPrice', '30000000');
-      }
-    }
 
     router.push(`/properties?${params.toString()}`);
   };
@@ -96,7 +80,7 @@ export default function Hero() {
           </div>
 
           {/* Search Inputs Grid */}
-          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-left">
+          <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-left">
             
             {/* Location */}
             <div className="flex flex-col">
@@ -120,7 +104,7 @@ export default function Hero() {
               <select
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               >
                 <option value="All">All Types</option>
                 <option value="Apartment">Apartment</option>
@@ -134,42 +118,6 @@ export default function Hero() {
                 <option value="Shop">Shop</option>
                 <option value="Farmhouse">Farmhouse</option>
                 <option value="PG / Hostel">PG / Hostel</option>
-              </select>
-            </div>
-
-            {/* Budget */}
-            <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
-                <IndianRupee className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Budget
-              </label>
-              <select
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
-              >
-                <option value="All">Any Price</option>
-                <option value="under_50l">Under ₹50 Lakh</option>
-                <option value="50l_1cr">₹50 Lakh - ₹1 Cr</option>
-                <option value="1cr_3cr">₹1 Cr - ₹3 Cr</option>
-                <option value="above_3cr">Above ₹3 Cr</option>
-              </select>
-            </div>
-
-            {/* Bedrooms */}
-            <div className="flex flex-col">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
-                <BedDouble className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Bedrooms
-              </label>
-              <select
-                value={bedrooms}
-                onChange={(e) => setBedrooms(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
-              >
-                <option value="All">Any Beds</option>
-                <option value="1">1 BHK</option>
-                <option value="2">2 BHK</option>
-                <option value="3">3 BHK</option>
-                <option value="4+">4+ BHK</option>
               </select>
             </div>
 
