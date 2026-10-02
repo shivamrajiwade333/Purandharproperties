@@ -79,23 +79,23 @@ export default function Navbar() {
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Logo with 3-click Secret Admin Trigger */}
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="flex items-center space-x-3 group cursor-pointer select-none"
+            className="flex items-center space-x-2.5 sm:space-x-3 group cursor-pointer select-none"
             title="Purandhar Properties (Click 3 times to open Admin Login)"
           >
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-navy-900 to-brand-700 flex items-center justify-center text-white shadow-md shadow-brand-900/10 group-hover:scale-105 transition-transform duration-200">
-              <Building2 className="w-6 h-6" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-navy-900 to-brand-700 flex items-center justify-center text-white shadow-md shadow-brand-900/10 group-hover:scale-105 transition-transform duration-200 shrink-0">
+              <Building2 className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <span className="text-xl font-extrabold tracking-tight text-navy-900 font-sans block">
+              <span className="text-base sm:text-xl font-extrabold tracking-tight text-navy-900 font-sans block leading-none">
                 Purandhar<span className="text-brand-600">Properties</span>
               </span>
-              <span className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 block -mt-1">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-slate-400 block mt-0.5">
                 Verified Real Estate
               </span>
             </div>

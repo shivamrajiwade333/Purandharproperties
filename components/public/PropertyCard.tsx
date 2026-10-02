@@ -114,21 +114,21 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
       </div>
 
       {/* Property Details Section */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5">
         
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {/* Price & Type */}
-          <div className="flex items-center justify-between">
-            <span className="text-xl font-extrabold text-navy-900 tracking-tight">
+          <div className="flex flex-wrap items-baseline justify-between gap-1">
+            <span className="text-lg sm:text-xl font-extrabold text-navy-900 tracking-tight">
               {formatPrice(property.price, property.listingType)}
             </span>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
               {property.propertyType}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-base font-bold text-navy-900 line-clamp-1 group-hover:text-brand-600 transition-colors">
+          <h3 className="text-sm sm:text-base font-bold text-navy-900 line-clamp-1 group-hover:text-brand-600 transition-colors">
             <Link href={`/property/${property._id || property.slug}`}>
               {property.title}
             </Link>
@@ -142,24 +142,24 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
         </div>
 
         {/* Core Specs Grid */}
-        <div className="grid grid-cols-3 gap-2 py-3 px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-xs font-semibold">
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-slate-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center">
-              <Bed className="w-3 h-3 mr-1 text-brand-600" /> Beds
+        <div className="grid grid-cols-3 gap-1 sm:gap-2 py-2.5 px-2 sm:px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-[11px] sm:text-xs font-semibold">
+          <div className="flex flex-col items-center justify-center text-center min-w-0">
+            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+              <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Beds
             </span>
-            <span>{property.bedrooms > 0 ? `${property.bedrooms} Beds` : 'N/A'}</span>
+            <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms} Beds` : 'N/A'}</span>
           </div>
 
-          <div className="flex flex-col items-center justify-center text-center border-x border-slate-200">
-            <span className="text-slate-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center">
-              <Bath className="w-3 h-3 mr-1 text-brand-600" /> Baths
+          <div className="flex flex-col items-center justify-center text-center border-x border-slate-200 min-w-0 px-0.5">
+            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+              <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Baths
             </span>
-            <span>{property.bathrooms > 0 ? `${property.bathrooms} Baths` : 'N/A'}</span>
+            <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms} Baths` : 'N/A'}</span>
           </div>
 
-          <div className="flex flex-col items-center justify-center text-center">
-            <span className="text-slate-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center">
-              <Maximize2 className="w-3 h-3 mr-1 text-brand-600" /> Area
+          <div className="flex flex-col items-center justify-center text-center min-w-0">
+            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+              <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Area
             </span>
             <span className="truncate">{formatArea(property.area)}</span>
           </div>
@@ -167,13 +167,13 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
 
         {/* Footer & Action button */}
         <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-          <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm">
+          <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm truncate max-w-[50%]">
             {property.furnishing}
           </span>
 
           <Link
             href={`/property/${property._id || property.slug}`}
-            className="inline-flex items-center text-xs font-bold text-navy-900 group-hover:text-brand-600 transition-colors"
+            className="inline-flex items-center text-xs font-bold text-navy-900 group-hover:text-brand-600 transition-colors py-1"
           >
             View Details &rarr;
           </Link>

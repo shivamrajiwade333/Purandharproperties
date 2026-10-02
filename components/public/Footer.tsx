@@ -55,14 +55,14 @@ export default function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
               Your trusted real estate portal for Pune and Purandhar region. We connect homebuyers, tenants, and investors with verified residential luxury properties, villas, commercial spaces, and land.
             </p>
-            <div className="flex items-center space-x-3 pt-2">
+            <div className="flex flex-wrap items-center gap-2 pt-2">
               <div className="flex items-center space-x-1 text-xs text-brand-400 bg-brand-950/60 border border-brand-800/50 px-3 py-1.5 rounded-full">
-                <ShieldCheck className="w-4 h-4 mr-1 text-brand-500" />
-                100% Verified Listings
+                <ShieldCheck className="w-4 h-4 mr-1 text-brand-500 shrink-0" />
+                <span>100% Verified Listings</span>
               </div>
               <div className="flex items-center space-x-1 text-xs text-amber-400 bg-amber-950/60 border border-amber-800/50 px-3 py-1.5 rounded-full">
-                <Award className="w-4 h-4 mr-1 text-amber-500" />
-                Direct Owner Deals
+                <Award className="w-4 h-4 mr-1 text-amber-500 shrink-0" />
+                <span>Direct Owner Deals</span>
               </div>
             </div>
           </div>

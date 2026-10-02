@@ -131,9 +131,9 @@ export default function AdminDashboardPage() {
       />
 
       {/* Stats Cards Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
+      <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-4">
         
-        <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs space-y-1">
+        <div className="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs space-y-1">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total</span>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-extrabold text-navy-900">{totalProperties}</span>

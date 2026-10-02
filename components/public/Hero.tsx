@@ -43,18 +43,18 @@ export default function Hero() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         
         {/* Trust pill */}
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs font-semibold text-brand-300 mb-4 sm:mb-6 shadow-sm max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
-          <CheckCircle2 className="w-4 h-4 text-brand-400 shrink-0" />
+        <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] sm:text-xs font-semibold text-brand-300 mb-3 sm:mb-6 shadow-sm max-w-full">
+          <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-400 shrink-0" />
           <span className="truncate">Verified Real Estate Across Purandhar Taluka (Saswad, Jejuri, Dive...)</span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+        <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
           Find a Place You'll Love in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">Purandhar Taluka</span>
         </h1>
 
         {/* Subheading */}
-        <p className="mt-3 sm:mt-5 text-sm sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+        <p className="mt-2.5 sm:mt-5 text-xs sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
           Explore verified homes, apartments, villas, agricultural plots, and commercial spaces across Purandhar Taluka.
         </p>
 
