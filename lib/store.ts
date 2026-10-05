@@ -7,8 +7,10 @@ declare global {
   var _realEstateEnquiriesStore: EnquiryItem[] | undefined;
 }
 
-if (!global._realEstatePropertiesStore) {
-  global._realEstatePropertiesStore = [...INITIAL_PROPERTIES];
+if (!global._realEstatePropertiesStore || global._realEstatePropertiesStore.some(p => ['1','2','3','4','5'].includes(p._id))) {
+  global._realEstatePropertiesStore = global._realEstatePropertiesStore
+    ? global._realEstatePropertiesStore.filter(p => !['1','2','3','4','5'].includes(p._id))
+    : [...INITIAL_PROPERTIES];
 }
 
 if (!global._realEstateEnquiriesStore) {
