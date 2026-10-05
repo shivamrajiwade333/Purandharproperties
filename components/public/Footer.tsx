@@ -4,9 +4,11 @@ import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Building2, Mail, Phone, MapPin, ArrowRight, ShieldCheck, Award } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
   const router = useRouter();
+  const { t } = useLanguage();
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -29,6 +31,15 @@ export default function Footer() {
       clickCountRef.current = 0;
     }, 1200);
   };
+
+  const navItemsList = [
+    { label: t('navHome'), href: '/' },
+    { label: t('navProperties'), href: '/properties' },
+    { label: t('navBuy'), href: '/buy' },
+    { label: t('navRent'), href: '/rent' },
+    { label: t('navCommercial'), href: '/commercial' },
+    { label: t('navContact'), href: '/contact' },
+  ];
 
   return (
     <footer className="bg-navy-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
@@ -53,7 +64,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Your trusted real estate portal for Pune and Purandhar region. We connect homebuyers, tenants, and investors with verified residential luxury properties, villas, commercial spaces, and land.
+              {t('footerDesc')}
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <div className="flex items-center space-x-1 text-xs text-brand-400 bg-brand-950/60 border border-brand-800/50 px-3 py-1.5 rounded-full">
@@ -69,28 +80,25 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white text-base font-semibold tracking-wide mb-4">Quick Links</h4>
+            <h4 className="text-white text-base font-semibold tracking-wide mb-4">{t('quickLinks')}</h4>
             <ul className="space-y-2.5 text-sm">
-              {['Home', 'Properties', 'Buy Properties', 'Rent Properties', 'Commercial Space', 'Contact Us'].map((item, idx) => {
-                const hrefs = ['/', '/properties', '/buy', '/rent', '/commercial', '/contact'];
-                return (
-                  <li key={item}>
-                    <Link
-                      href={hrefs[idx]}
-                      className="hover:text-brand-400 transition-colors inline-flex items-center group"
-                    >
-                      <ArrowRight className="w-3 h-3 mr-1.5 text-slate-600 group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
-                      {item}
-                    </Link>
-                  </li>
-                );
-              })}
+              {navItemsList.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-brand-400 transition-colors inline-flex items-center group"
+                  >
+                    <ArrowRight className="w-3 h-3 mr-1.5 text-slate-600 group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Property Types */}
           <div>
-            <h4 className="text-white text-base font-semibold tracking-wide mb-4">Property Types</h4>
+            <h4 className="text-white text-base font-semibold tracking-wide mb-4">{t('propertyTypes')}</h4>
             <ul className="space-y-2.5 text-sm">
               {['Apartment', 'Villa', 'Flat', 'Commercial Office', 'Plot / Land', 'Farmhouse'].map((type) => (
                 <li key={type}>
@@ -108,11 +116,11 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white text-base font-semibold tracking-wide mb-4">Contact Info</h4>
+            <h4 className="text-white text-base font-semibold tracking-wide mb-4">{t('contactInfo')}</h4>
             <ul className="space-y-3.5 text-sm text-slate-400">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 text-brand-500 shrink-0 mt-0.5" />
-                <span>Purandhar Tower, High Street Road, Baner, Pune, Maharashtra 411045</span>
+                <span>Saswad Main Market Road, Purandhar Taluka, Pune, Maharashtra 412301</span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-4 h-4 mr-3 text-brand-500 shrink-0" />
@@ -133,9 +141,9 @@ export default function Footer() {
 
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Purandhar Properties. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Purandhar Properties. {t('allRightsReserved')}</p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <Link href="/admin/login?force=1" className="hover:text-slate-300 transition-colors">Admin Portal</Link>
+            <Link href="/admin/login?force=1" className="hover:text-slate-300 transition-colors">{t('navAdminPortal')}</Link>
             <Link href="/properties" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <Link href="/properties" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
           </div>

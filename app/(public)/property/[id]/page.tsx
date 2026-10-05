@@ -8,6 +8,7 @@ import { PropertyItem } from '@/types';
 import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utils';
 import ImageLightbox from '@/components/public/ImageLightbox';
 import VideoPlayerModal from '@/components/public/VideoPlayerModal';
+import { useLanguage } from '@/context/LanguageContext';
 import {
   MapPin,
   Bed,
@@ -31,6 +32,7 @@ import {
 export default function PropertyDetailPage() {
   const params = useParams();
   const id = params.id as string;
+  const { t } = useLanguage();
 
   const [property, setProperty] = useState<PropertyItem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -163,9 +165,9 @@ export default function PropertyDetailPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 sm:pb-6 border-b border-slate-200">
         <div>
           <div className="flex items-center space-x-1.5 sm:space-x-2 text-[11px] sm:text-xs font-semibold text-slate-500 mb-2 overflow-x-auto whitespace-nowrap">
-            <Link href="/" className="hover:text-navy-900 shrink-0">Home</Link>
+            <Link href="/" className="hover:text-navy-900 shrink-0">{t('navHome')}</Link>
             <span>/</span>
-            <Link href="/properties" className="hover:text-navy-900 shrink-0">Properties</Link>
+            <Link href="/properties" className="hover:text-navy-900 shrink-0">{t('navProperties')}</Link>
             <span>/</span>
             <span className="text-brand-700 font-bold truncate max-w-xs">{property.title}</span>
           </div>
@@ -173,13 +175,13 @@ export default function PropertyDetailPage() {
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2">
             {property.featured && (
               <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-amber-500 text-slate-950">
-                <Sparkles className="w-3 h-3 mr-1 fill-current" /> FEATURED
+                <Sparkles className="w-3 h-3 mr-1 fill-current" /> {t('featured')}
               </span>
             )}
             <span className={`px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold ${
               property.listingType === 'Sale' ? 'bg-navy-900 text-white' : 'bg-brand-600 text-white'
             }`}>
-              FOR {property.listingType.toUpperCase()}
+              {property.listingType === 'Sale' ? t('forSale') : t('forRent')}
             </span>
             <span className="px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-slate-100 text-slate-700">
               {property.propertyType}
@@ -343,27 +345,27 @@ export default function PropertyDetailPage() {
           {/* Key Specifications Grid */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
             <h3 className="text-lg font-bold text-navy-900 border-b border-slate-100 pb-3">
-              Key Property Specifications
+              {t('keySpecs')}
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 pt-2">
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Bed className="w-3.5 h-3.5 mr-1 text-brand-600" /> Bedrooms
+                  <Bed className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bedrooms')}
                 </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.bedrooms > 0 ? `${property.bedrooms} BHK` : 'N/A'}</span>
+                <span className="text-sm font-extrabold text-navy-900">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
               </div>
 
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Bath className="w-3.5 h-3.5 mr-1 text-brand-600" /> Bathrooms
+                  <Bath className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bathrooms')}
                 </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.bathrooms > 0 ? `${property.bathrooms} Baths` : 'N/A'}</span>
+                <span className="text-sm font-extrabold text-navy-900">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
               </div>
 
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> Built-up Area
+                  <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('builtUpArea')}
                 </span>
                 <span className="text-sm font-extrabold text-navy-900">{formatArea(property.area)}</span>
               </div>
@@ -371,7 +373,7 @@ export default function PropertyDetailPage() {
               {property.carpetArea ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                    <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> Carpet Area
+                    <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('carpetArea')}
                   </span>
                   <span className="text-sm font-extrabold text-navy-900">{formatArea(property.carpetArea)}</span>
                 </div>
@@ -379,14 +381,14 @@ export default function PropertyDetailPage() {
 
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Sofa className="w-3.5 h-3.5 mr-1 text-brand-600" /> Furnishing
+                  <Sofa className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('furnishing')}
                 </span>
                 <span className="text-sm font-extrabold text-navy-900">{property.furnishing}</span>
               </div>
 
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Car className="w-3.5 h-3.5 mr-1 text-brand-600" /> Parking
+                  <Car className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('parking')}
                 </span>
                 <span className="text-sm font-extrabold text-navy-900">{property.parking || 'None'}</span>
               </div>
@@ -394,7 +396,7 @@ export default function PropertyDetailPage() {
               {property.floor !== undefined ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                    <Layers className="w-3.5 h-3.5 mr-1 text-brand-600" /> Floor
+                    <Layers className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('floor')}
                   </span>
                   <span className="text-sm font-extrabold text-navy-900">
                     {property.floor} {property.totalFloors ? `of ${property.totalFloors}` : ''}
@@ -404,9 +406,9 @@ export default function PropertyDetailPage() {
 
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Building className="w-3.5 h-3.5 mr-1 text-brand-600" /> Listing Type
+                  <Building className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('listingTypeLabel')}
                 </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.listingType}</span>
+                <span className="text-sm font-extrabold text-navy-900">{property.listingType === 'Sale' ? t('forSale') : t('forRent')}</span>
               </div>
             </div>
           </div>
@@ -414,7 +416,7 @@ export default function PropertyDetailPage() {
           {/* Description */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-3">
             <h3 className="text-lg font-bold text-navy-900 border-b border-slate-100 pb-3">
-              Property Description
+              {t('descriptionTitle')}
             </h3>
             <div className="text-sm text-slate-600 leading-relaxed space-y-3 font-sans whitespace-pre-line">
               {property.description}
@@ -425,7 +427,7 @@ export default function PropertyDetailPage() {
           {property.amenities && property.amenities.length > 0 && (
             <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
               <h3 className="text-lg font-bold text-navy-900 border-b border-slate-100 pb-3">
-                Amenities & Features
+                {t('amenitiesTitle')}
               </h3>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -476,10 +478,10 @@ export default function PropertyDetailPage() {
             
             <div className="border-b border-slate-100 pb-4">
               <span className="text-[11px] font-bold text-brand-600 uppercase tracking-widest block mb-1">
-                CONTACT OWNER / AGENT
+                {t('contactAgentTitle')}
               </span>
               <h3 className="text-xl font-extrabold text-navy-900 font-sans">
-                {property.ownerName || 'Apex Estate Ventures'}
+                {property.ownerName || 'Purandhar Properties'}
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">Verified Premier Real Estate Partner</p>
             </div>
@@ -495,7 +497,7 @@ export default function PropertyDetailPage() {
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 transition-all text-sm"
               >
                 <MessageSquare className="w-4 h-4 fill-current" />
-                <span>Chat on WhatsApp</span>
+                <span>{t('chatWhatsapp')}</span>
               </a>
 
               {/* Direct Phone Call Button */}
@@ -504,19 +506,18 @@ export default function PropertyDetailPage() {
                 className="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-3 px-4 rounded-xl shadow-md flex items-center justify-center space-x-2 transition-all text-sm"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call {property.phone}</span>
+                <span>{t('callAgent')}</span>
               </a>
 
             </div>
 
             {/* Send Enquiry Form */}
             <div className="pt-4 border-t border-slate-100 space-y-4">
-              <h4 className="text-sm font-bold text-navy-900">Interested in this property?</h4>
+              <h4 className="text-sm font-bold text-navy-900">{t('interestedTitle')}</h4>
               
               {enquirySuccess ? (
                 <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold space-y-1">
-                  <p className="font-bold">Enquiry Submitted Successfully!</p>
-                  <p className="text-[11px]">Our property specialist will contact you within 2 hours.</p>
+                  <p className="font-bold">{t('enquirySuccessMsg')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleEnquirySubmit} className="space-y-3">
@@ -529,7 +530,7 @@ export default function PropertyDetailPage() {
                   <div>
                     <input
                       type="text"
-                      placeholder="Your Full Name *"
+                      placeholder={t('fullNameReq')}
                       required
                       value={enquiryForm.name}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
@@ -540,7 +541,7 @@ export default function PropertyDetailPage() {
                   <div>
                     <input
                       type="tel"
-                      placeholder="Phone Number *"
+                      placeholder={t('phoneReq')}
                       required
                       value={enquiryForm.phone}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
@@ -551,7 +552,7 @@ export default function PropertyDetailPage() {
                   <div>
                     <input
                       type="email"
-                      placeholder="Email Address *"
+                      placeholder={t('emailReq')}
                       required
                       value={enquiryForm.email}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
@@ -562,7 +563,7 @@ export default function PropertyDetailPage() {
                   <div>
                     <textarea
                       rows={3}
-                      placeholder="I would like more information regarding this property..."
+                      placeholder={t('messageReq')}
                       required
                       value={enquiryForm.message}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, message: e.target.value })}
@@ -576,7 +577,7 @@ export default function PropertyDetailPage() {
                     className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-bold py-2.5 px-4 rounded-xl shadow-md flex items-center justify-center space-x-2 transition-all text-xs"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>{enquirySubmitting ? 'Sending...' : 'Send Enquiry'}</span>
+                    <span>{enquirySubmitting ? t('sendingEnquiry') : t('sendEnquiry')}</span>
                   </button>
                 </form>
               )}
@@ -598,7 +599,7 @@ export default function PropertyDetailPage() {
           className="flex-1 bg-emerald-600 active:bg-emerald-700 text-white font-bold py-3 px-3 rounded-xl shadow-md flex items-center justify-center space-x-1.5 text-xs tracking-tight"
         >
           <MessageSquare className="w-4 h-4 fill-current" />
-          <span>WhatsApp Chat</span>
+          <span>{t('chatWhatsapp')}</span>
         </a>
 
         <a
@@ -606,7 +607,7 @@ export default function PropertyDetailPage() {
           className="flex-1 bg-navy-900 active:bg-navy-800 text-white font-bold py-3 px-3 rounded-xl shadow-md flex items-center justify-center space-x-1.5 text-xs tracking-tight"
         >
           <Phone className="w-4 h-4" />
-          <span>Call Agent</span>
+          <span>{t('callAgent')}</span>
         </a>
       </div>
 

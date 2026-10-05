@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PropertyItem } from '@/types';
 import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utils';
-import { MapPin, Bed, Bath, Maximize2, Heart, Video, Sparkles, CheckCircle2 } from 'lucide-react';
+import { MapPin, Bed, Bath, Maximize2, Heart, Video, Sparkles } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface PropertyCardProps {
   property: PropertyItem;
@@ -13,6 +14,7 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ property, onVideoClick }: PropertyCardProps) {
+  const { t } = useLanguage();
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -59,13 +61,13 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
             {property.featured && (
               <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-500 text-slate-950 shadow-md">
                 <Sparkles className="w-3 h-3 mr-1 fill-current" />
-                FEATURED
+                {t('featured')}
               </span>
             )}
             <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-md ${
               property.listingType === 'Sale' ? 'bg-navy-900 text-white' : 'bg-brand-600 text-white'
             }`}>
-              FOR {property.listingType.toUpperCase()}
+              {property.listingType === 'Sale' ? t('forSale') : t('forRent')}
             </span>
           </div>
 
@@ -107,7 +109,7 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
               className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-600/90 hover:bg-rose-600 text-white backdrop-blur-md transition-colors shadow-sm"
             >
               <Video className="w-3.5 h-3.5 mr-1 animate-pulse" />
-              Video Tour
+              {t('videoTour')}
             </button>
           )}
         </div>
@@ -145,21 +147,21 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
         <div className="grid grid-cols-3 gap-1 sm:gap-2 py-2.5 px-2 sm:px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-[11px] sm:text-xs font-semibold">
           <div className="flex flex-col items-center justify-center text-center min-w-0">
             <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Beds
+              <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('beds')}
             </span>
-            <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms} Beds` : 'N/A'}</span>
+            <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
           </div>
 
           <div className="flex flex-col items-center justify-center text-center border-x border-slate-200 min-w-0 px-0.5">
             <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Baths
+              <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('baths')}
             </span>
-            <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms} Baths` : 'N/A'}</span>
+            <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
           </div>
 
           <div className="flex flex-col items-center justify-center text-center min-w-0">
             <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> Area
+              <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('area')}
             </span>
             <span className="truncate">{formatArea(property.area)}</span>
           </div>
@@ -175,7 +177,7 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
             href={`/property/${property._id || property.slug}`}
             className="inline-flex items-center text-xs font-bold text-navy-900 group-hover:text-brand-600 transition-colors py-1"
           >
-            View Details &rarr;
+            {t('viewDetails')} &rarr;
           </Link>
         </div>
 

@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Building2, Heart, Menu, X, Phone, UserCheck, ShieldCheck } from 'lucide-react';
 import { getFavoriteIds } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
+import LanguageSwitcher from '@/components/public/LanguageSwitcher';
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
 
@@ -39,7 +42,6 @@ export default function Navbar() {
       setAdminNotice(true);
 
       try {
-        // Clear session cookie to force fresh login credentials prompt
         await fetch('/api/auth/logout', { method: 'POST' });
       } catch (err) {
         // ignore
@@ -59,12 +61,12 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Properties', href: '/properties' },
-    { name: 'Buy', href: '/buy' },
-    { name: 'Rent', href: '/rent' },
-    { name: 'Commercial', href: '/commercial' },
-    { name: 'Contact', href: '/contact' },
+    { name: t('navHome'), href: '/' },
+    { name: t('navProperties'), href: '/properties' },
+    { name: t('navBuy'), href: '/buy' },
+    { name: t('navRent'), href: '/rent' },
+    { name: t('navCommercial'), href: '/commercial' },
+    { name: t('navContact'), href: '/contact' },
   ];
 
   return (
@@ -85,7 +87,7 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="flex items-center space-x-2.5 sm:space-x-3 group cursor-pointer select-none"
+            className="flex items-center space-x-2.5 sm:space-x-3 group cursor-pointer select-none shrink-0"
             title="Purandhar Properties (Click 3 times to open Admin Login)"
           >
             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-navy-900 to-brand-700 flex items-center justify-center text-white shadow-md shadow-brand-900/10 group-hover:scale-105 transition-transform duration-200 shrink-0">
@@ -107,7 +109,7 @@ export default function Navbar() {
               const isActive = pathname === link.href;
               return (
                 <Link
-                  key={link.name}
+                  key={link.href}
                   href={link.href}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
@@ -122,12 +124,16 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action Items */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
+            
+            {/* Trilingual Language Selector */}
+            <LanguageSwitcher />
+
             {/* Favorites Badge Link */}
             <Link
               href="/favorites"
               className="relative p-2.5 rounded-full text-slate-600 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-              title="Saved Favorites"
+              title={t('navSavedFavorites')}
             >
               <Heart className="w-5 h-5" />
               {favoriteCount > 0 && (
@@ -141,7 +147,7 @@ export default function Navbar() {
             <Link
               href="/admin/login?force=1"
               className="p-2.5 rounded-full text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition-colors"
-              title="Admin Portal"
+              title={t('navAdminPortal')}
             >
               <UserCheck className="w-5 h-5" />
             </Link>
@@ -152,17 +158,17 @@ export default function Navbar() {
               className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-sm font-semibold shadow-md shadow-navy-900/10 hover:shadow-lg transition-all duration-200"
             >
               <Phone className="w-4 h-4 mr-2 text-brand-500" />
-              Contact Us
+              {t('contactAgent')}
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-2">
+          {/* Mobile Menu Button & Quick Actions */}
+          <div className="flex md:hidden items-center space-x-1.5 sm:space-x-2">
             <Link
               href="/favorites"
               className="relative p-2 text-slate-600 hover:text-rose-600"
             >
-              <Heart className="w-6 h-6" />
+              <Heart className="w-5.5 h-5.5" />
               {favoriteCount > 0 && (
                 <span className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {favoriteCount}
@@ -175,7 +181,7 @@ export default function Navbar() {
               className="p-2 text-slate-700 hover:text-navy-900 focus:outline-hidden"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+              {mobileMenuOpen ? <X className="w-6.5 h-6.5" /> : <Menu className="w-6.5 h-6.5" />}
             </button>
           </div>
         </div>
@@ -183,35 +189,42 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top-4 duration-200">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block px-4 py-2.5 rounded-lg text-base font-medium ${
-                pathname === link.href
-                  ? 'text-brand-700 bg-brand-50 font-semibold'
-                  : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <div className="pt-4 border-t border-slate-100 flex flex-col gap-2">
+        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3 animate-in slide-in-from-top-4 duration-200">
+          
+          {/* Mobile Trilingual Language Selector */}
+          <LanguageSwitcher isMobile={true} />
+
+          <div className="space-y-1 pt-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-4 py-2.5 rounded-xl text-base font-medium ${
+                  pathname === link.href
+                    ? 'text-brand-700 bg-brand-50 font-semibold'
+                    : 'text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
             <Link
               href="/admin/login?force=1"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 text-center rounded-xl bg-slate-100 text-slate-800 text-sm font-semibold"
             >
-              Admin Portal
+              {t('navAdminPortal')}
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 text-center rounded-xl bg-navy-900 text-white text-sm font-semibold shadow-sm"
             >
-              Contact Agent
+              {t('contactAgent')}
             </Link>
           </div>
         </div>
@@ -219,3 +232,4 @@ export default function Navbar() {
     </header>
   );
 }
+

@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Building, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Hero() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<'All' | 'Sale' | 'Rent'>('All');
   const [location, setLocation] = useState('');
@@ -45,17 +47,17 @@ export default function Hero() {
         {/* Trust pill */}
         <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] sm:text-xs font-semibold text-brand-300 mb-3 sm:mb-6 shadow-sm max-w-full">
           <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-400 shrink-0" />
-          <span className="truncate">Verified Real Estate Across Purandhar Taluka (Saswad, Jejuri, Dive...)</span>
+          <span className="truncate">{t('heroPill')}</span>
         </div>
 
         {/* Main Headline */}
         <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
-          Find a Place You'll Love in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">Purandhar Taluka</span>
+          {t('heroTitlePrefix')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">{t('heroTitleHighlight')}</span>
         </h1>
 
         {/* Subheading */}
         <p className="mt-2.5 sm:mt-5 text-xs sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-          Explore verified homes, apartments, villas, agricultural plots, and commercial spaces across Purandhar Taluka.
+          {t('heroSubtitle')}
         </p>
 
         {/* Search Card Container */}
@@ -74,7 +76,7 @@ export default function Hero() {
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-100'
                 }`}
               >
-                {tab === 'All' ? 'ALL PROPERTIES' : tab === 'Sale' ? 'BUY PROPERTY' : 'RENT PROPERTY'}
+                {tab === 'All' ? t('allProperties') : tab === 'Sale' ? t('buyProperty') : t('rentProperty')}
               </button>
             ))}
           </div>
@@ -85,11 +87,11 @@ export default function Hero() {
             {/* Location */}
             <div className="flex flex-col">
               <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
-                <MapPin className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Location / Area
+                <MapPin className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> {t('locationArea')}
               </label>
               <input
                 type="text"
-                placeholder="Saswad, Jejuri, Dive..."
+                placeholder={t('locationPlaceholder')}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
@@ -99,14 +101,14 @@ export default function Hero() {
             {/* Property Type */}
             <div className="flex flex-col">
               <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center">
-                <Building className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> Property Type
+                <Building className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" /> {t('propertyType')}
               </label>
               <select
                 value={propertyType}
                 onChange={(e) => setPropertyType(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 shadow-2xs"
               >
-                <option value="All">All Types</option>
+                <option value="All">{t('allTypes')}</option>
                 <option value="Apartment">Apartment</option>
                 <option value="Flat">Flat</option>
                 <option value="Villa">Villa</option>
@@ -128,7 +130,7 @@ export default function Hero() {
                 className="w-full bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-700 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2 transition-all duration-200 active:scale-95 text-sm"
               >
                 <Search className="w-4 h-4" />
-                <span>SEARCH</span>
+                <span>{t('searchButton')}</span>
               </button>
             </div>
 

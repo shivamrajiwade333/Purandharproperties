@@ -7,6 +7,7 @@ import Hero from '@/components/public/Hero';
 import PropertyCard from '@/components/public/PropertyCard';
 import VideoPlayerModal from '@/components/public/VideoPlayerModal';
 import { PropertyItem } from '@/types';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   Building2, 
   Home, 
@@ -23,6 +24,7 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
+  const { t } = useLanguage();
   const [featuredProperties, setFeaturedProperties] = useState<PropertyItem[]>([]);
   const [latestProperties, setLatestProperties] = useState<PropertyItem[]>([]);
   const [videoProperties, setVideoProperties] = useState<PropertyItem[]>([]);
@@ -90,17 +92,17 @@ export default function HomePage() {
               PURANDHAR TALUKA HIGHLIGHTS
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight font-sans">
-              Featured Properties in Purandhar
+              {t('featuredTitle')}
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Top verified homes, plots, and commercial units across Saswad, Jejuri, Narayanpur, and Dive.
+              {t('featuredSubtitle')}
             </p>
           </div>
           <Link
             href="/properties?featured=true"
             className="inline-flex items-center text-xs sm:text-sm font-bold text-brand-700 hover:text-brand-800 mt-3 md:mt-0 group"
           >
-            <span>Explore All Featured</span>
+            <span>{t('exploreFeatured')}</span>
             <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -131,10 +133,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight font-sans">
-              Browse Properties by Type
+              {t('browseByTypeTitle')}
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-2">
-              Discover apartments, agricultural plots, and farmhouses tailored to Purandhar Taluka.
+              {t('browseByTypeSubtitle')}
             </p>
           </div>
 
@@ -229,17 +231,17 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight font-sans">
-              Latest Property Listings in Purandhar
+              {t('latestListingsTitle')}
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Freshly added homes, apartments, plots, and shops across Purandhar Taluka.
+              {t('latestListingsSubtitle')}
             </p>
           </div>
           <Link
             href="/properties"
             className="inline-flex items-center text-xs sm:text-sm font-bold text-brand-700 hover:text-brand-800 mt-3 md:mt-0 group"
           >
-            <span>View All Listings ({latestProperties.length})</span>
+            <span>{t('viewAllListings')} ({latestProperties.length})</span>
             <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -259,10 +261,10 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight font-sans">
-            Explore Properties Across Purandhar Taluka
+            {t('exploreVillagesTitle')}
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Discover real estate listings across the major towns and villages of Purandhar.
+            {t('exploreVillagesSubtitle')}
           </p>
         </div>
 
@@ -299,10 +301,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
             <span className="text-[10px] sm:text-xs font-bold text-brand-600 uppercase tracking-wider block mb-1">
-              THE PURANDHAR PROPERTIES ADVANTAGE
+              {t('advantageTitle')}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight font-sans">
-              Why Homebuyers & Investors Trust Purandhar Properties
+              {t('whyChooseUsTitle')}
             </h2>
           </div>
 
@@ -311,9 +313,9 @@ export default function HomePage() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-100 text-brand-700 mx-auto flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-navy-900">100% Purandhar Local Focus</h3>
+              <h3 className="text-sm sm:text-base font-bold text-navy-900">{t('adv1Title')}</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Dedicated exclusively to verified properties, NA plots, and homes across Purandhar Taluka.
+                {t('adv1Desc')}
               </p>
             </div>
 
@@ -321,9 +323,9 @@ export default function HomePage() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 text-blue-700 mx-auto flex items-center justify-center shrink-0">
                 <Award className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-navy-900">Direct Owner & Agent Contact</h3>
+              <h3 className="text-sm sm:text-base font-bold text-navy-900">{t('adv2Title')}</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Connect instantly via Call or WhatsApp directly with verified property owners and local agents in Purandhar.
+                {t('adv2Desc')}
               </p>
             </div>
 
@@ -331,9 +333,9 @@ export default function HomePage() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 text-amber-700 mx-auto flex items-center justify-center shrink-0">
                 <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-navy-900">HD Virtual Video Tours</h3>
+              <h3 className="text-sm sm:text-base font-bold text-navy-900">{t('adv3Title')}</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Experience full-screen property video tours before taking the time to schedule on-site visits in Saswad or Jejuri.
+                {t('adv3Desc')}
               </p>
             </div>
 
@@ -341,9 +343,9 @@ export default function HomePage() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center shrink-0">
                 <Headphones className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-navy-900">End-to-End Assistance</h3>
+              <h3 className="text-sm sm:text-base font-bold text-navy-900">{t('adv4Title')}</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                From title verification to 7/12 land extract checks, our team guides you at every step in Purandhar.
+                {t('adv4Desc')}
               </p>
             </div>
           </div>
