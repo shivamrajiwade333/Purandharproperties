@@ -42,35 +42,35 @@ export default function Hero() {
       <div className="absolute top-10 left-1/4 w-72 h-72 bg-brand-600/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      <div className="relative max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 text-center z-10 w-full overflow-hidden">
         
         {/* Trust pill */}
-        <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] sm:text-xs font-semibold text-brand-300 mb-3 sm:mb-6 shadow-sm max-w-full">
+        <div className="inline-flex items-center space-x-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] sm:text-xs font-semibold text-brand-300 mb-3 sm:mb-6 shadow-sm max-w-[95vw] overflow-hidden">
           <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-400 shrink-0" />
-          <span className="truncate">{t('heroPill')}</span>
+          <span className="truncate max-w-[80vw]">{t('heroPill')}</span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+        <h1 className="text-xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight font-sans text-white max-w-4xl mx-auto leading-snug sm:leading-none break-words px-1">
           {t('heroTitlePrefix')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">{t('heroTitleHighlight')}</span>
         </h1>
 
         {/* Subheading */}
-        <p className="mt-2.5 sm:mt-5 text-xs sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+        <p className="mt-2 sm:mt-5 text-xs sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-normal sm:leading-relaxed break-words px-1">
           {t('heroSubtitle')}
         </p>
 
         {/* Search Card Container */}
-        <div className="mt-6 sm:mt-10 max-w-4xl mx-auto bg-white/95 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20 text-slate-900">
+        <div className="mt-5 sm:mt-10 max-w-4xl mx-auto bg-white/95 backdrop-blur-xl rounded-2xl p-3 sm:p-6 shadow-2xl border border-white/20 text-slate-900 w-full overflow-hidden">
           
           {/* Buy / Rent / All Tabs */}
-          <div className="flex items-center space-x-2 border-b border-slate-200/70 pb-3 mb-4 overflow-x-auto whitespace-nowrap no-scrollbar">
+          <div className="flex items-center justify-start sm:justify-center gap-1.5 border-b border-slate-200/70 pb-3 mb-4 overflow-x-auto no-scrollbar w-full">
             {(['All', 'Sale', 'Rent'] as const).map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all shrink-0 ${
+                className={`px-3 sm:px-5 py-2 rounded-lg text-[11px] sm:text-sm font-bold tracking-tight transition-all shrink-0 ${
                   activeTab === tab
                     ? 'bg-navy-900 text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-100'
