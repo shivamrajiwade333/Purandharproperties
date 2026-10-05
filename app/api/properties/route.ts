@@ -208,8 +208,8 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    if (!body.title || !body.price || !body.propertyType || !body.city) {
-      return NextResponse.json({ error: 'Missing required property fields' }, { status: 400 });
+    if (!body.title || !body.propertyType || !body.city) {
+      return NextResponse.json({ error: 'Missing required property fields: Title, Property Type, or City' }, { status: 400 });
     }
 
     const db = await connectDB();

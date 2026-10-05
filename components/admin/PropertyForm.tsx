@@ -183,7 +183,7 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       status,
       publishStatus: finalPublishStatus,
       featured,
-      price: Number(price),
+      price: price ? Number(price) : 0,
       maintenance: maintenance ? Number(maintenance) : 0,
       deposit: deposit ? Number(deposit) : 0,
       address: address.trim() || city.trim(),
