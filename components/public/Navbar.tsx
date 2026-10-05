@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Building2, Heart, Menu, X, Phone, UserCheck, ShieldCheck } from 'lucide-react';
+import { Building2, Heart, Menu, X, Phone, ShieldCheck } from 'lucide-react';
 import { getFavoriteIds } from '@/lib/utils';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageSwitcher from '@/components/public/LanguageSwitcher';
@@ -143,14 +143,7 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* Admin Portal link */}
-            <Link
-              href="/admin/login?force=1"
-              className="p-2.5 rounded-full text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition-colors"
-              title={t('navAdminPortal')}
-            >
-              <UserCheck className="w-5 h-5" />
-            </Link>
+
 
             {/* Primary Action Button */}
             <Link
