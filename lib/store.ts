@@ -7,6 +7,13 @@ declare global {
   var _realEstateEnquiriesStore: EnquiryItem[] | undefined;
 }
 
+import fs from 'fs';
+import path from 'path';
+
+const DATA_DIR = path.join(process.cwd(), 'data');
+const PROPERTIES_FILE = path.join(DATA_DIR, 'properties.json');
+const ENQUIRIES_FILE = path.join(DATA_DIR, 'enquiries.json');
+
 const sampleUrls = [
   'photo-1545324418-cc1a3fa10c00',
   'photo-1600596542815-ffad4c1539a9'
@@ -29,14 +36,38 @@ function sanitizePropertyImages(p: PropertyItem): PropertyItem {
   };
 }
 
-if (!global._realEstatePropertiesStore || global._realEstatePropertiesStore.some(p => ['1','2','3','4','5'].includes(p._id))) {
+function loadPropertiesFromFile(): PropertyItem[] {
+  try {
+    if (fs.existsSync(PROPERTIES_FILE)) {
+      const content = fs.readFileSync(PROPERTIES_FILE, 'utf-8');
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed)) {
+        return parsed.map(sanitizePropertyImages);
+      }
+    }
+  } catch (e) {
+    console.error('Error loading properties.json', e);
+  }
+  return [...INITIAL_PROPERTIES];
+}
+
+function savePropertiesToFile(list: PropertyItem[]) {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(PROPERTIES_FILE, JSON.stringify(list, null, 2), 'utf-8');
+  } catch (e) {
+    console.error('Error writing properties.json', e);
+  }
+}
+
+if (!global._realEstatePropertiesStore) {
+  global._realEstatePropertiesStore = loadPropertiesFromFile();
+} else {
   global._realEstatePropertiesStore = global._realEstatePropertiesStore
-    ? global._realEstatePropertiesStore
-        .filter(p => !['1','2','3','4','5'].includes(p._id))
-        .map(sanitizePropertyImages)
-    : [...INITIAL_PROPERTIES];
-} else if (global._realEstatePropertiesStore) {
-  global._realEstatePropertiesStore = global._realEstatePropertiesStore.map(sanitizePropertyImages);
+    .filter(p => !['1','2','3','4','5'].includes(p._id))
+    .map(sanitizePropertyImages);
 }
 
 if (!global._realEstateEnquiriesStore) {
@@ -102,7 +133,9 @@ export const memoryStore = {
       updatedAt: new Date().toISOString(),
     };
     list.unshift(newProperty);
-    global._realEstatePropertiesStore = list.map(sanitizePropertyImages);
+    const sanitized = list.map(sanitizePropertyImages);
+    global._realEstatePropertiesStore = sanitized;
+    savePropertiesToFile(sanitized);
     return newProperty;
   },
 
@@ -123,7 +156,9 @@ export const memoryStore = {
     };
 
     list[index] = updatedProperty;
-    global._realEstatePropertiesStore = list;
+    const sanitized = list.map(sanitizePropertyImages);
+    global._realEstatePropertiesStore = sanitized;
+    savePropertiesToFile(sanitized);
     return updatedProperty;
   },
 
@@ -131,7 +166,9 @@ export const memoryStore = {
     const list = global._realEstatePropertiesStore || [];
     const filtered = list.filter(p => p._id !== id && p.id !== id);
     const success = filtered.length !== list.length;
-    global._realEstatePropertiesStore = filtered;
+    const sanitized = filtered.map(sanitizePropertyImages);
+    global._realEstatePropertiesStore = sanitized;
+    savePropertiesToFile(sanitized);
     return success;
   },
 
