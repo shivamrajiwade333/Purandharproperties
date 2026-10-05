@@ -343,75 +343,99 @@ export default function PropertyDetailPage() {
         <div className="lg:col-span-2 space-y-10">
           
           {/* Key Specifications Grid */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
-            <h3 className="text-lg font-bold text-navy-900 border-b border-slate-100 pb-3">
-              {t('keySpecs')}
-            </h3>
+          {(() => {
+            const isPlot = property.propertyType?.toLowerCase().includes('plot') || property.propertyType?.toLowerCase().includes('land');
+            
+            return (
+              <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+                <h3 className="text-lg font-bold text-navy-900 border-b border-slate-100 pb-3">
+                  {t('keySpecs')}
+                </h3>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 pt-2">
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Bed className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bedrooms')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
-              </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 pt-2">
+                  {/* Bedrooms: Only for non-plot properties with bedrooms > 0 */}
+                  {!isPlot && property.bedrooms > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Bed className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bedrooms')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{property.bedrooms}</span>
+                    </div>
+                  )}
 
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Bath className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bathrooms')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
-              </div>
+                  {/* Bathrooms: Only for non-plot properties with bathrooms > 0 */}
+                  {!isPlot && property.bathrooms > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Bath className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('bathrooms')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{property.bathrooms}</span>
+                    </div>
+                  )}
 
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('builtUpArea')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{formatArea(property.area)}</span>
-              </div>
+                  {/* Built-up / Plot Area */}
+                  {property.area > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {isPlot ? 'Plot Area' : t('builtUpArea')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{formatArea(property.area)}</span>
+                    </div>
+                  )}
 
-              {property.carpetArea ? (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                    <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('carpetArea')}
-                  </span>
-                  <span className="text-sm font-extrabold text-navy-900">{formatArea(property.carpetArea)}</span>
+                  {/* Carpet Area */}
+                  {!isPlot && property.carpetArea ? (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('carpetArea')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{formatArea(property.carpetArea)}</span>
+                    </div>
+                  ) : null}
+
+                  {/* Furnishing */}
+                  {!isPlot && property.furnishing && property.furnishing !== 'Unfurnished' && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Sofa className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('furnishing')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{property.furnishing}</span>
+                    </div>
+                  )}
+
+                  {/* Parking */}
+                  {!isPlot && property.parking && property.parking !== 'None' && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Car className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('parking')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">{property.parking}</span>
+                    </div>
+                  )}
+
+                  {/* Floor */}
+                  {!isPlot && property.floor !== undefined && (
+                    <div className="space-y-1">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                        <Layers className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('floor')}
+                      </span>
+                      <span className="text-sm font-extrabold text-navy-900">
+                        {property.floor} {property.totalFloors ? `of ${property.totalFloors}` : ''}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Listing Type */}
+                  <div className="space-y-1">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
+                      <Building className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('listingTypeLabel')}
+                    </span>
+                    <span className="text-sm font-extrabold text-navy-900">{property.listingType === 'Sale' ? t('forSale') : t('forRent')}</span>
+                  </div>
                 </div>
-              ) : null}
-
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Sofa className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('furnishing')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.furnishing}</span>
               </div>
-
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Car className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('parking')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.parking || 'None'}</span>
-              </div>
-
-              {property.floor !== undefined ? (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                    <Layers className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('floor')}
-                  </span>
-                  <span className="text-sm font-extrabold text-navy-900">
-                    {property.floor} {property.totalFloors ? `of ${property.totalFloors}` : ''}
-                  </span>
-                </div>
-              ) : null}
-
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block flex items-center">
-                  <Building className="w-3.5 h-3.5 mr-1 text-brand-600" /> {t('listingTypeLabel')}
-                </span>
-                <span className="text-sm font-extrabold text-navy-900">{property.listingType === 'Sale' ? t('forSale') : t('forRent')}</span>
-              </div>
-            </div>
-          </div>
+            );
+          })()}
 
           {/* Description */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-3">

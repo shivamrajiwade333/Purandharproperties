@@ -52,15 +52,15 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
   const [longitude, setLongitude] = useState(initialData?.longitude ? String(initialData.longitude) : '');
 
   // Specs
-  const [bedrooms, setBedrooms] = useState(initialData?.bedrooms !== undefined ? String(initialData.bedrooms) : '3');
-  const [bathrooms, setBathrooms] = useState(initialData?.bathrooms !== undefined ? String(initialData.bathrooms) : '2');
-  const [balconies, setBalconies] = useState(initialData?.balconies !== undefined ? String(initialData.balconies) : '1');
+  const [bedrooms, setBedrooms] = useState(initialData?.bedrooms !== undefined ? String(initialData.bedrooms) : '0');
+  const [bathrooms, setBathrooms] = useState(initialData?.bathrooms !== undefined ? String(initialData.bathrooms) : '0');
+  const [balconies, setBalconies] = useState(initialData?.balconies !== undefined ? String(initialData.balconies) : '0');
   const [floor, setFloor] = useState(initialData?.floor !== undefined ? String(initialData.floor) : '');
   const [totalFloors, setTotalFloors] = useState(initialData?.totalFloors !== undefined ? String(initialData.totalFloors) : '');
   const [area, setArea] = useState(initialData?.area ? String(initialData.area) : '');
   const [carpetArea, setCarpetArea] = useState(initialData?.carpetArea ? String(initialData.carpetArea) : '');
-  const [parking, setParking] = useState(initialData?.parking || '1 Covered Slot');
-  const [furnishing, setFurnishing] = useState<FurnishingStatus>(initialData?.furnishing || 'Semi-Furnished');
+  const [parking, setParking] = useState(initialData?.parking || 'None');
+  const [furnishing, setFurnishing] = useState<FurnishingStatus>(initialData?.furnishing || 'Unfurnished');
 
   // Amenities
   const availableAmenitiesList = [
@@ -175,6 +175,8 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
     ];
 
+    const isPlot = propertyType?.toLowerCase().includes('plot') || propertyType?.toLowerCase().includes('land');
+
     const payload = {
       title: title.trim(),
       description: description.trim() || title.trim(),
@@ -192,15 +194,15 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       pincode: pincode.trim() || '412301',
       latitude: latitude ? Number(latitude) : undefined,
       longitude: longitude ? Number(longitude) : undefined,
-      bedrooms: Number(bedrooms || 0),
-      bathrooms: Number(bathrooms || 0),
-      balconies: Number(balconies || 0),
-      floor: floor ? Number(floor) : undefined,
-      totalFloors: totalFloors ? Number(totalFloors) : undefined,
+      bedrooms: isPlot ? 0 : Number(bedrooms || 0),
+      bathrooms: isPlot ? 0 : Number(bathrooms || 0),
+      balconies: isPlot ? 0 : Number(balconies || 0),
+      floor: isPlot ? undefined : (floor ? Number(floor) : undefined),
+      totalFloors: isPlot ? undefined : (totalFloors ? Number(totalFloors) : undefined),
       area: Number(area || 0),
-      carpetArea: carpetArea ? Number(carpetArea) : undefined,
-      parking,
-      furnishing,
+      carpetArea: isPlot ? undefined : (carpetArea ? Number(carpetArea) : undefined),
+      parking: isPlot ? 'None' : parking,
+      furnishing: isPlot ? 'Unfurnished' : furnishing,
       amenities,
       images: finalImages,
       coverImage: coverImage || finalImages[0] || '',
@@ -466,115 +468,142 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       </div>
 
       {/* 4. Specifications */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
-        <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
-          <Bed className="w-5 h-5 text-brand-600" />
-          <h3 className="text-base font-bold text-navy-900">4. Property Specifications & Layout <span className="text-xs text-slate-400 font-normal">(Optional)</span></h3>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Bedrooms</label>
-            <input
-              type="number"
-              placeholder="3"
-              value={bedrooms}
-              onChange={(e) => setBedrooms(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
+      {propertyType === 'Plot / Land' ? (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+          <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
+            <Bed className="w-5 h-5 text-brand-600" />
+            <h3 className="text-base font-bold text-navy-900">4. Plot / Land Area Details</h3>
           </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Bathrooms</label>
-            <input
-              type="number"
-              placeholder="2"
-              value={bathrooms}
-              onChange={(e) => setBathrooms(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
+          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold flex items-center space-x-2">
+            <Info className="w-4 h-4 text-amber-600 shrink-0" />
+            <span>Residential specifications (Bedrooms, Bathrooms, Furnishing, Parking) are automatically disabled for Plot / Land listings.</span>
           </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Balconies</label>
-            <input
-              type="number"
-              placeholder="1"
-              value={balconies}
-              onChange={(e) => setBalconies(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Built-up Area (sqft) <span className="text-slate-400 font-normal">(Optional)</span></label>
-            <input
-              type="number"
-              placeholder="1450"
-              value={area}
-              onChange={(e) => setArea(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Carpet Area (sqft)</label>
-            <input
-              type="number"
-              placeholder="1120"
-              value={carpetArea}
-              onChange={(e) => setCarpetArea(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Floor No.</label>
-            <input
-              type="number"
-              placeholder="4"
-              value={floor}
-              onChange={(e) => setFloor(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Total Floors</label>
-            <input
-              type="number"
-              placeholder="7"
-              value={totalFloors}
-              onChange={(e) => setTotalFloors(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Furnishing Status</label>
-            <select
-              value={furnishing}
-              onChange={(e) => setFurnishing(e.target.value as FurnishingStatus)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            >
-              <option value="Unfurnished">Unfurnished</option>
-              <option value="Semi-Furnished">Semi-Furnished</option>
-              <option value="Fully Furnished">Fully Furnished</option>
-            </select>
-          </div>
-
-          <div className="md:col-span-2 space-y-1">
-            <label className="text-xs font-bold text-slate-600 uppercase">Parking Information</label>
-            <input
-              type="text"
-              placeholder="e.g. 1 Covered Slot"
-              value={parking}
-              onChange={(e) => setParking(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Plot / Land Area (sqft)</label>
+              <input
+                type="number"
+                placeholder="e.g. 5450"
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+          <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
+            <Bed className="w-5 h-5 text-brand-600" />
+            <h3 className="text-base font-bold text-navy-900">4. Property Specifications & Layout <span className="text-xs text-slate-400 font-normal">(Optional)</span></h3>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Bedrooms</label>
+              <input
+                type="number"
+                placeholder="3"
+                value={bedrooms}
+                onChange={(e) => setBedrooms(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Bathrooms</label>
+              <input
+                type="number"
+                placeholder="2"
+                value={bathrooms}
+                onChange={(e) => setBathrooms(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Balconies</label>
+              <input
+                type="number"
+                placeholder="1"
+                value={balconies}
+                onChange={(e) => setBalconies(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Built-up Area (sqft) <span className="text-slate-400 font-normal">(Optional)</span></label>
+              <input
+                type="number"
+                placeholder="1450"
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Carpet Area (sqft)</label>
+              <input
+                type="number"
+                placeholder="1120"
+                value={carpetArea}
+                onChange={(e) => setCarpetArea(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Floor No.</label>
+              <input
+                type="number"
+                placeholder="4"
+                value={floor}
+                onChange={(e) => setFloor(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Total Floors</label>
+              <input
+                type="number"
+                placeholder="7"
+                value={totalFloors}
+                onChange={(e) => setTotalFloors(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Furnishing Status</label>
+              <select
+                value={furnishing}
+                onChange={(e) => setFurnishing(e.target.value as FurnishingStatus)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              >
+                <option value="Unfurnished">Unfurnished</option>
+                <option value="Semi-Furnished">Semi-Furnished</option>
+                <option value="Fully Furnished">Fully Furnished</option>
+              </select>
+            </div>
+
+            <div className="md:col-span-2 space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase">Parking Information</label>
+              <input
+                type="text"
+                placeholder="e.g. 1 Covered Slot"
+                value={parking}
+                onChange={(e) => setParking(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-brand-500 font-medium"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 5. Amenities Checkbox Grid */}
       <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-4">

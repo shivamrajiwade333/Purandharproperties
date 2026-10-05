@@ -144,33 +144,49 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
         </div>
 
         {/* Core Specs Grid */}
-        <div className="grid grid-cols-3 gap-1 sm:gap-2 py-2.5 px-2 sm:px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-[11px] sm:text-xs font-semibold">
-          <div className="flex flex-col items-center justify-center text-center min-w-0">
-            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('beds')}
-            </span>
-            <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
-          </div>
+        {(() => {
+          const isPlot = property.propertyType?.toLowerCase().includes('plot') || property.propertyType?.toLowerCase().includes('land');
+          if (isPlot || (property.bedrooms === 0 && property.bathrooms === 0)) {
+            return (
+              <div className="flex items-center justify-between py-2.5 px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-xs font-semibold">
+                <span className="text-slate-400 text-[10px] uppercase tracking-wider flex items-center">
+                  <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> Plot Area
+                </span>
+                <span className="font-extrabold text-navy-900">{formatArea(property.area)}</span>
+              </div>
+            );
+          }
 
-          <div className="flex flex-col items-center justify-center text-center border-x border-slate-200 min-w-0 px-0.5">
-            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('baths')}
-            </span>
-            <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
-          </div>
+          return (
+            <div className="grid grid-cols-3 gap-1 sm:gap-2 py-2.5 px-2 sm:px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-[11px] sm:text-xs font-semibold">
+              <div className="flex flex-col items-center justify-center text-center min-w-0">
+                <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+                  <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('beds')}
+                </span>
+                <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
+              </div>
 
-          <div className="flex flex-col items-center justify-center text-center min-w-0">
-            <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
-              <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('area')}
-            </span>
-            <span className="truncate">{formatArea(property.area)}</span>
-          </div>
-        </div>
+              <div className="flex flex-col items-center justify-center text-center border-x border-slate-200 min-w-0 px-0.5">
+                <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+                  <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('baths')}
+                </span>
+                <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
+              </div>
+
+              <div className="flex flex-col items-center justify-center text-center min-w-0">
+                <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
+                  <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('area')}
+                </span>
+                <span className="truncate">{formatArea(property.area)}</span>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Footer & Action button */}
         <div className="pt-2 flex items-center justify-between border-t border-slate-100">
           <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm truncate max-w-[50%]">
-            {property.furnishing}
+            {property.propertyType?.toLowerCase().includes('plot') || property.propertyType?.toLowerCase().includes('land') ? 'Plot / Land' : property.furnishing}
           </span>
 
           <Link
