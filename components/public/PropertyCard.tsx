@@ -146,13 +146,15 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
         {/* Core Specs Grid */}
         {(() => {
           const isPlot = property.propertyType?.toLowerCase().includes('plot') || property.propertyType?.toLowerCase().includes('land');
+          const areaText = formatArea(property.area);
+
           if (isPlot || (property.bedrooms === 0 && property.bathrooms === 0)) {
             return (
               <div className="flex items-center justify-between py-2.5 px-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-700 text-xs font-semibold">
                 <span className="text-slate-400 text-[10px] uppercase tracking-wider flex items-center">
                   <Maximize2 className="w-3.5 h-3.5 mr-1 text-brand-600" /> Plot Area
                 </span>
-                <span className="font-extrabold text-navy-900">{formatArea(property.area)}</span>
+                <span className="font-extrabold text-navy-900">{areaText || 'Plot / Land'}</span>
               </div>
             );
           }
@@ -163,21 +165,21 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
                 <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
                   <Bed className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('beds')}
                 </span>
-                <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms}` : 'N/A'}</span>
+                <span className="truncate">{property.bedrooms > 0 ? `${property.bedrooms}` : '-'}</span>
               </div>
 
               <div className="flex flex-col items-center justify-center text-center border-x border-slate-200 min-w-0 px-0.5">
                 <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
                   <Bath className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('baths')}
                 </span>
-                <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A'}</span>
+                <span className="truncate">{property.bathrooms > 0 ? `${property.bathrooms}` : '-'}</span>
               </div>
 
               <div className="flex flex-col items-center justify-center text-center min-w-0">
                 <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider mb-0.5 flex items-center truncate">
                   <Maximize2 className="w-3 h-3 mr-0.5 sm:mr-1 text-brand-600 shrink-0" /> {t('area')}
                 </span>
-                <span className="truncate">{formatArea(property.area)}</span>
+                <span className="truncate">{areaText || '-'}</span>
               </div>
             </div>
           );

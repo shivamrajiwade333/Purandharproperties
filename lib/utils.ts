@@ -27,7 +27,7 @@ export function formatPrice(price: number, listingType?: string): string {
 }
 
 export function formatArea(sqft: number): string {
-  if (!sqft) return 'N/A';
+  if (!sqft || isNaN(sqft) || sqft === 0) return '';
   return `${sqft.toLocaleString('en-IN')} sq.ft.`;
 }
 
