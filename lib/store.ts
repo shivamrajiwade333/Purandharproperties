@@ -7,10 +7,36 @@ declare global {
   var _realEstateEnquiriesStore: EnquiryItem[] | undefined;
 }
 
+const sampleUrls = [
+  'photo-1545324418-cc1a3fa10c00',
+  'photo-1600596542815-ffad4c1539a9'
+];
+
+function sanitizePropertyImages(p: PropertyItem): PropertyItem {
+  if (!p) return p;
+  let imgs = p.images || [];
+  if (imgs.length > 1 && imgs.some(img => sampleUrls.some(s => img.includes(s)))) {
+    imgs = imgs.filter(img => !sampleUrls.some(s => img.includes(s)));
+  }
+  let cover = p.coverImage || '';
+  if (cover && sampleUrls.some(s => cover.includes(s)) && imgs.length > 0) {
+    cover = imgs[0];
+  }
+  return {
+    ...p,
+    images: imgs,
+    coverImage: cover || imgs[0] || '',
+  };
+}
+
 if (!global._realEstatePropertiesStore || global._realEstatePropertiesStore.some(p => ['1','2','3','4','5'].includes(p._id))) {
   global._realEstatePropertiesStore = global._realEstatePropertiesStore
-    ? global._realEstatePropertiesStore.filter(p => !['1','2','3','4','5'].includes(p._id))
+    ? global._realEstatePropertiesStore
+        .filter(p => !['1','2','3','4','5'].includes(p._id))
+        .map(sanitizePropertyImages)
     : [...INITIAL_PROPERTIES];
+} else if (global._realEstatePropertiesStore) {
+  global._realEstatePropertiesStore = global._realEstatePropertiesStore.map(sanitizePropertyImages);
 }
 
 if (!global._realEstateEnquiriesStore) {
@@ -18,16 +44,20 @@ if (!global._realEstateEnquiriesStore) {
 }
 
 export const memoryStore = {
-  getProperties: () => global._realEstatePropertiesStore || [],
+  getProperties: () => (global._realEstatePropertiesStore || []).map(sanitizePropertyImages),
   
   getPropertyById: (id: string) => {
-    const list = global._realEstatePropertiesStore || [];
+    const list = (global._realEstatePropertiesStore || []).map(sanitizePropertyImages);
     return list.find(p => p._id === id || p.id === id || p.slug === id);
   },
 
   addProperty: (property: Partial<PropertyItem>) => {
     const list = global._realEstatePropertiesStore || [];
     const newId = 'prop-' + Date.now();
+    let rawImages = Array.isArray(property.images) ? property.images : [];
+    if (rawImages.length > 1 && rawImages.some(img => sampleUrls.some(s => img.includes(s)))) {
+      rawImages = rawImages.filter(img => !sampleUrls.some(s => img.includes(s)));
+    }
     const newProperty: PropertyItem = {
       _id: newId,
       id: newId,
@@ -55,9 +85,11 @@ export const memoryStore = {
       parking: property.parking || 'None',
       furnishing: property.furnishing || 'Unfurnished',
       amenities: Array.isArray(property.amenities) ? property.amenities : [],
-      images: Array.isArray(property.images) ? property.images : [],
+      images: rawImages,
       videos: Array.isArray(property.videos) ? property.videos : [],
-      coverImage: property.coverImage || (property.images?.[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'),
+      coverImage: property.coverImage && !sampleUrls.some(s => property.coverImage?.includes(s))
+        ? property.coverImage
+        : (rawImages[0] || ''),
       featured: Boolean(property.featured),
       status: property.status || 'Available',
       publishStatus: property.publishStatus || 'Published',
@@ -70,7 +102,7 @@ export const memoryStore = {
       updatedAt: new Date().toISOString(),
     };
     list.unshift(newProperty);
-    global._realEstatePropertiesStore = list;
+    global._realEstatePropertiesStore = list.map(sanitizePropertyImages);
     return newProperty;
   },
 

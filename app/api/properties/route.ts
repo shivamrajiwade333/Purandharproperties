@@ -227,7 +227,7 @@ export async function POST(request: Request) {
       bathrooms: Number(body.bathrooms || 0),
       area: Number(body.area || 0),
       featured: Boolean(body.featured),
-      coverImage: body.coverImage || (body.images?.[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'),
+      coverImage: body.coverImage || (body.images?.[0] || ''),
       videos: Array.isArray(body.videos) ? body.videos : body.videoUrl ? [{ url: body.videoUrl, title: 'Property Video Tour' }] : [],
     };
 
