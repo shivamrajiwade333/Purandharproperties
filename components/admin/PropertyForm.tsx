@@ -67,19 +67,12 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
     'Swimming Pool', 'Gym', 'Parking', 'Security', 'Lift', 'Garden',
     'Club House', 'CCTV', 'Power Backup', 'Water Supply', 'EV Charging', 'Wi-Fi', 'Intercom', 'Play Area'
   ];
-  const [amenities, setAmenities] = useState<string[]>(initialData?.amenities || ['Swimming Pool', 'Gym', 'Parking', 'Security', 'Lift']);
+  const [amenities, setAmenities] = useState<string[]>(initialData?.amenities || []);
 
   // Media
-  const [images, setImages] = useState<string[]>(
-    initialData?.images || [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-    ]
-  );
-  const [coverImage, setCoverImage] = useState<string>(initialData?.coverImage || images[0] || '');
-  const [videoUrl, setVideoUrl] = useState<string>(
-    initialData?.videos?.[0]?.url || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
-  );
+  const [images, setImages] = useState<string[]>(initialData?.images || []);
+  const [coverImage, setCoverImage] = useState<string>(initialData?.coverImage || (initialData?.images?.[0] || ''));
+  const [videoUrl, setVideoUrl] = useState<string>(initialData?.videos?.[0]?.url || '');
   const [newPhotoInput, setNewPhotoInput] = useState('');
 
   // Contact Info
@@ -171,9 +164,7 @@ export default function PropertyForm({ initialData, isEditMode = false }: Proper
       return;
     }
 
-    const finalImages = images.length > 0 ? images : [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
-    ];
+    const finalImages = images;
 
     const isPlot = propertyType?.toLowerCase().includes('plot') || propertyType?.toLowerCase().includes('land');
 
