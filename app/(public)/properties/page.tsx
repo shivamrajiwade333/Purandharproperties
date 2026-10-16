@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import PropertyCard from '@/components/public/PropertyCard';
-import VideoPlayerModal from '@/components/public/VideoPlayerModal';
-import ScrollReveal from '@/components/public/ScrollReveal';
+import PropertyCard from '@/components/property/PropertyCard';
+import VideoPlayerModal from '@/components/modals/VideoPlayerModal';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 import { PropertyItem } from '@/types';
 import { 
   Search, 

@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '@/components/public/Navbar';
-import Footer from '@/components/public/Footer';
-import BackToTop from '@/components/public/BackToTop';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import BackToTop from '@/components/shared/BackToTop';
 
 export default function PublicLayout({
   children,

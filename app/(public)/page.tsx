@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Hero from '@/components/public/Hero';
-import PropertyCard from '@/components/public/PropertyCard';
-import VideoPlayerModal from '@/components/public/VideoPlayerModal';
-import ScrollReveal from '@/components/public/ScrollReveal';
+import Hero from '@/components/hero/HeroSection';
+import PropertyCard from '@/components/property/PropertyCard';
+import VideoPlayerModal from '@/components/modals/VideoPlayerModal';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 import { PropertyItem } from '@/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
