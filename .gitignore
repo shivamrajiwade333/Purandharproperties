@@ -28,3 +28,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# binaries & archives
+*.zip
+*.exe
+tests/k6/*windows*

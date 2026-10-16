@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import PropertyCard from '@/components/public/PropertyCard';
 import VideoPlayerModal from '@/components/public/VideoPlayerModal';
+import ScrollReveal from '@/components/public/ScrollReveal';
 import { PropertyItem } from '@/types';
 import { 
   Search, 
@@ -382,12 +383,13 @@ function SearchCatalogContent() {
             </div>
           ) : properties.length > 0 ? (
             <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'space-y-6'}>
-              {properties.map((property) => (
-                <PropertyCard
-                  key={property._id || property.id}
-                  property={property}
-                  onVideoClick={handleOpenVideo}
-                />
+              {properties.map((property, idx) => (
+                <ScrollReveal key={property._id || property.id} animation="pop-up" delay={(idx % 2) * 80} className="h-full">
+                  <PropertyCard
+                    property={property}
+                    onVideoClick={handleOpenVideo}
+                  />
+                </ScrollReveal>
               ))}
             </div>
           ) : (

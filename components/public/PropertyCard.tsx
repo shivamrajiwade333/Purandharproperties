@@ -41,11 +41,11 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
   const firstVideo = hasVideo ? property.videos[0] : null;
 
   return (
-    <div className="group bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
-      
-      {/* Media & Badges Overlay */}
-      <div className="relative aspect-16/10 w-full bg-slate-100 overflow-hidden">
-        <Image
+    <div className="group bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden h-full">
+        
+        {/* Media & Badges Overlay */}
+        <div className="relative aspect-16/10 w-full bg-slate-100 overflow-hidden">
+          <Image
           src={property.coverImage || property.images[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'}
           alt={property.title}
           fill
@@ -198,9 +198,7 @@ export default function PropertyCard({ property, onVideoClick }: PropertyCardPro
             {t('viewDetails')} &rarr;
           </Link>
         </div>
-
       </div>
-
     </div>
   );
 }
