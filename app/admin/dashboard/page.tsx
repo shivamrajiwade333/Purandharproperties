@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import AdminHeader from '@/components/admin/AdminHeader';
 import { PropertyItem, EnquiryItem } from '@/types';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/lib/utilities/utils';
 import {
   Building2,
   CheckCircle,

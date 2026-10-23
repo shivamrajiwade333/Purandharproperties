@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/db';
+import { connectDB } from '@/lib/database/db';
 import Enquiry from '@/models/Enquiry';
-import { memoryStore } from '@/lib/store';
-import { getAdminFromCookies } from '@/lib/auth';
+import { memoryStore } from '@/lib/utilities/store';
+import { getAdminFromCookies } from '@/lib/auth/auth';
 
 // GET enquiries (Admin protected)
 export async function GET() {

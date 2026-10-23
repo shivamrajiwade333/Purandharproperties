@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/db';
+import { connectDB } from '@/lib/database/db';
 import Property from '@/models/Property';
 import Enquiry from '@/models/Enquiry';
 import Admin from '@/models/Admin';
-import { INITIAL_PROPERTIES, INITIAL_ENQUIRIES } from '@/lib/seedData';
-import { memoryStore } from '@/lib/store';
-import { hashPassword } from '@/lib/auth';
+import { INITIAL_PROPERTIES, INITIAL_ENQUIRIES } from '@/lib/database/seedData';
+import { memoryStore } from '@/lib/utilities/store';
+import { hashPassword } from '@/lib/auth/auth';
 
 export async function POST() {
   try {

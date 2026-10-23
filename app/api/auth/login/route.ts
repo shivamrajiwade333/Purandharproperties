@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/db';
+import { connectDB } from '@/lib/database/db';
 import Admin from '@/models/Admin';
-import { comparePassword, signAdminToken, COOKIE_NAME } from '@/lib/auth';
+import { comparePassword, signAdminToken, COOKIE_NAME } from '@/lib/auth/auth';
 
 export async function POST(request: Request) {
   try {

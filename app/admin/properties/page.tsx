@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import AdminHeader from '@/components/admin/AdminHeader';
 import { PropertyItem } from '@/types';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/lib/utilities/utils';
 import {
   Building2,
   Plus,

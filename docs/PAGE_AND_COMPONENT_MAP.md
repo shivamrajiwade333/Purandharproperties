@@ -34,7 +34,7 @@ This document provides a comprehensive, verified mapping of **every single page 
 - **URL Route:** `/`
 - **Main Page File:** [`app/(public)/page.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/app/(public)/page.tsx)
 - **Layout File:** [`app/(public)/layout.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/app/(public)/layout.tsx)
-- **Hero Component:** [`components/hero/HeroSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/hero/HeroSection.tsx) (Re-exported in `components/hero/Hero.tsx`)
+- **Hero Component:** [`components/hero/HeroSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/hero/HeroSection.tsx)
 - **Navbar Component:** [`components/layout/Navbar.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/layout/Navbar.tsx)
 - **Footer Component:** [`components/layout/Footer.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/layout/Footer.tsx)
 - **Other Components Used:**

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminFromCookies } from '@/lib/auth';
+import { getAdminFromCookies } from '@/lib/auth/auth';
 
 export async function GET() {
   const admin = await getAdminFromCookies();

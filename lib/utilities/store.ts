@@ -1,5 +1,5 @@
 import { PropertyItem, EnquiryItem } from '@/types';
-import { INITIAL_PROPERTIES, INITIAL_ENQUIRIES } from '@/lib/seedData';
+import { INITIAL_PROPERTIES, INITIAL_ENQUIRIES } from '@/lib/database/seedData';
 
 // Global memory store for zero-config fallback when MongoDB is not connected
 declare global {

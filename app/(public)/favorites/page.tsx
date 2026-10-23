@@ -5,7 +5,7 @@ import Link from 'next/link';
 import PropertyCard from '@/components/property/PropertyCard';
 import VideoPlayerModal from '@/components/modals/VideoPlayerModal';
 import { PropertyItem } from '@/types';
-import { getFavoriteIds } from '@/lib/utils';
+import { getFavoriteIds } from '@/lib/utilities/utils';
 import { Heart, Building2 } from 'lucide-react';
 
 export default function FavoritesPage() {

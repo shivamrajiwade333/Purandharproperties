@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminFromCookies } from '@/lib/auth';
+import { getAdminFromCookies } from '@/lib/auth/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 

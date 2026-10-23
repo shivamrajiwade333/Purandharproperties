@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Building2, Heart, Menu, X, Phone, ShieldCheck } from 'lucide-react';
-import { getFavoriteIds } from '@/lib/utils';
+import { getFavoriteIds } from '@/lib/utilities/utils';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 

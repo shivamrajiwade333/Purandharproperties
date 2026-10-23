@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { PropertyItem } from '@/types';
-import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utils';
+import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utilities/utils';
 import { MapPin, Bed, Bath, Maximize2, Heart, Video, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 

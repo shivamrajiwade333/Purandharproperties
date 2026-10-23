@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { verifyAdminToken, COOKIE_NAME } from '@/lib/jwt';
+import { verifyAdminToken, COOKIE_NAME } from '@/lib/auth/jwt';
 
 export async function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;

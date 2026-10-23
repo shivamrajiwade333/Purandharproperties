@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { PropertyItem } from '@/types';
-import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utils';
+import { formatPrice, formatArea, getFavoriteIds, toggleFavoriteId } from '@/lib/utilities/utils';
 import ImageLightbox from '@/components/modals/ImageLightbox';
 import VideoPlayerModal from '@/components/modals/VideoPlayerModal';
 import { useLanguage } from '@/context/LanguageContext';

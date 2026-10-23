@@ -45,23 +45,20 @@ PurandharProperties/
 │   │   ├── Navbar.tsx                # Main top navigation bar & mobile drawer
 │   │   └── Footer.tsx                # Footer with office address, links & legal notes
 │   ├── hero/                         # Landing page hero components
-│   │   ├── HeroSection.tsx           # Main hero banner with quick property search
-│   │   └── Hero.tsx                  # Backward-compatible alias
+│   │   └── HeroSection.tsx           # Main hero banner with quick property search
 │   ├── property/                     # Property listing components
 │   │   └── PropertyCard.tsx          # Reusable property card with badges & pricing
 │   ├── admin/                        # Admin dashboard UI components
 │   │   ├── AdminHeader.tsx           # Dashboard top header with user status
 │   │   ├── AdminSidebar.tsx          # Dashboard left drawer navigation
-│   │   ├── SidebarNavigation.tsx     # Clean alias for AdminSidebar
 │   │   └── PropertyForm.tsx          # Comprehensive property creation/edit form
 │   ├── modals/                       # Interactive overlay modals
 │   │   ├── ImageLightbox.tsx         # Full-screen image gallery lightbox
 │   │   └── VideoPlayerModal.tsx      # Video walkthrough modal player
-│   ├── shared/                       # Cross-cutting UI utilities
-│   │   ├── BackToTop.tsx             # Floating scroll-to-top action button
-│   │   ├── LanguageSwitcher.tsx      # Language selector pill (EN / MR / HI)
-│   │   └── ScrollReveal.tsx          # Smooth intersection-observer scroll animation
-│   └── public/                       # Compatibility barrel re-exports
+│   └── shared/                       # Cross-cutting UI utilities
+│       ├── BackToTop.tsx             # Floating scroll-to-top action button
+│       ├── LanguageSwitcher.tsx      # Language selector pill (EN / MR / HI)
+│       └── ScrollReveal.tsx          # Smooth intersection-observer scroll animation
 │
 ├── lib/                              # Services, Utilities & Infrastructure
 │   ├── database/                     # Database connectivity
@@ -70,16 +67,10 @@ PurandharProperties/
 │   ├── auth/                         # Authentication & Security
 │   │   ├── auth.ts                   # Cookie extraction, bcrypt password hashing
 │   │   └── jwt.ts                    # Edge-compatible Jose JWT token signing
-│   ├── utilities/                    # Helper functions & state
-│   │   ├── utils.ts                  # Currency formatter ₹, Guntha/Acre converter
-│   │   ├── translations.ts           # Trilingual dictionary (EN, MR, HI)
-│   │   └── store.ts                  # In-memory + local JSON file fallback store
-│   ├── db.ts                         # Backward-compatible root export
-│   ├── auth.ts                       # Backward-compatible root export
-│   ├── jwt.ts                        # Backward-compatible root export
-│   ├── utils.ts                      # Backward-compatible root export
-│   ├── translations.ts               # Backward-compatible root export
-│   └── store.ts                      # Backward-compatible root export
+│   └── utilities/                    # Helper functions & state
+│       ├── utils.ts                  # Currency formatter ₹, Guntha/Acre converter
+│       ├── translations.ts           # Trilingual dictionary (EN, MR, HI)
+│       └── store.ts                  # In-memory + local JSON file fallback store
 │
 ├── models/                           # Mongoose MongoDB Data Schemas
 │   ├── Admin.ts                      # Admin user credentials schema

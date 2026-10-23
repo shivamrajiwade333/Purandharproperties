@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { Language } from '@/lib/translations';
+import { Language } from '@/lib/utilities/translations';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 export default function LanguageSwitcher({ isMobile = false }: { isMobile?: boolean }) {
