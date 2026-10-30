@@ -41,24 +41,13 @@ PurandharProperties/
 │   └── layout.tsx                    # Root HTML document wrapper & LanguageProvider
 │
 ├── components/                       # Feature-based Reusable React Components
-│   ├── layout/                       # Structural layout elements
-│   │   ├── Navbar.tsx                # Main top navigation bar & mobile drawer
-│   │   └── Footer.tsx                # Footer with office address, links & legal notes
-│   ├── hero/                         # Landing page hero components
-│   │   └── HeroSection.tsx           # Main hero banner with quick property search
-│   ├── property/                     # Property listing components
-│   │   └── PropertyCard.tsx          # Reusable property card with badges & pricing
-│   ├── admin/                        # Admin dashboard UI components
-│   │   ├── AdminHeader.tsx           # Dashboard top header with user status
-│   │   ├── AdminSidebar.tsx          # Dashboard left drawer navigation
-│   │   └── PropertyForm.tsx          # Comprehensive property creation/edit form
-│   ├── modals/                       # Interactive overlay modals
-│   │   ├── ImageLightbox.tsx         # Full-screen image gallery lightbox
-│   │   └── VideoPlayerModal.tsx      # Video walkthrough modal player
-│   └── shared/                       # Cross-cutting UI utilities
-│       ├── BackToTop.tsx             # Floating scroll-to-top action button
-│       ├── LanguageSwitcher.tsx      # Language selector pill (EN / MR / HI)
-│       └── ScrollReveal.tsx          # Smooth intersection-observer scroll animation
+│   ├── layout/                       # Structural layout elements (Navbar, Footer)
+│   ├── hero/                         # Landing page hero components (HeroSection)
+│   ├── home/                         # Modular Homepage Sections (Featured, Categories, Video, Latest, Villages, WhyUs)
+│   ├── property/                     # Property listing components (PropertyCard)
+│   ├── admin/                        # Admin dashboard UI components (Header, Sidebar, Form)
+│   ├── modals/                       # Interactive overlay modals (Lightbox, VideoModal)
+│   └── shared/                       # Cross-cutting UI utilities (BackToTop, LanguageSwitcher, ScrollReveal)
 │
 ├── lib/                              # Services, Utilities & Infrastructure
 │   ├── database/                     # Database connectivity

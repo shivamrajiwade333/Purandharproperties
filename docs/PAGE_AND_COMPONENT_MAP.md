@@ -42,11 +42,13 @@ This document provides a comprehensive, verified mapping of **every single page 
   - [`components/modals/VideoPlayerModal.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/modals/VideoPlayerModal.tsx) (Pop-up video player for property tours)
   - [`components/shared/ScrollReveal.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/shared/ScrollReveal.tsx) (Animation wrapper)
   - [`components/shared/BackToTop.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/shared/BackToTop.tsx) (Floating smooth scroll button)
-- **Hidden / Embedded Sub-Components (in `app/(public)/page.tsx`):**
-  - **Property Types Grid:** Lines 149–174 (Interactive categories for Apartment, Villa, Plot, Commercial, Farmhouse).
-  - **Virtual Video Walkthroughs Banner:** Lines 178–237 (Dark-themed showcase with play overlay button).
-  - **Purandar Villages Spotlight:** Lines 274–313 (Cards for Saswad, Jejuri, Narayanpur, Dive).
-  - **Why Choose Us Advantage Cards:** Lines 316–379 (Verified legal status, direct owners, virtual tours, local support).
+- **Modular Sub-Components (in `components/home/`):**
+  - [`components/home/FeaturedSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/FeaturedSection.tsx) (Top 3 featured properties with loading skeleton state)
+  - [`components/home/PropertyTypesSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/PropertyTypesSection.tsx) (6 property categories: Apartment, Villa, Flat, Plot, Commercial, Farmhouse)
+  - [`components/home/VideoToursSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/VideoToursSection.tsx) (Virtual video tours highlight showcase)
+  - [`components/home/LatestListingsSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/LatestListingsSection.tsx) (6 newest properties grid)
+  - [`components/home/VillagesSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/VillagesSection.tsx) (Spotlight cards for Saswad, Jejuri, Narayanpur, Dive)
+  - [`components/home/WhyChooseUsSection.tsx`](file:///c:/Users/omraj/OneDrive/Desktop/bw/components/home/WhyChooseUsSection.tsx) (4 trust and advantage badges)
 - **CSS / Styling Location:** Tailwind CSS inline classes with custom slate/navy color scheme; background blur in `app/globals.css`.
 - **API Calls:** `GET /api/properties?publishStatus=Published`
 - **Data Models Involved:** [`models/Property.ts`](file:///c:/Users/omraj/OneDrive/Desktop/bw/models/Property.ts), fallback to [`lib/utilities/store.ts`](file:///c:/Users/omraj/OneDrive/Desktop/bw/lib/utilities/store.ts) and `data/properties.json`.
